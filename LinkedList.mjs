@@ -110,4 +110,43 @@ export default class LinkedList {
     string += "null";
     return string;
   }
+  // Insert a new node with the provided value at the given index
+  insertAt(value, index) {
+    if (index === 0) {
+      this.prepend(value);
+      return;
+    }
+    let previousNode = this.headNode;
+    let pointer = previousNode.nextNode;
+    let nextNode = pointer.nextNode;
+
+    for (let i = 1; i < index; i++) {
+      if (pointer === null) {
+        return null;
+      }
+      pointer = pointer.nextNode;
+      previousNode = previousNode.nextNode;
+    }
+
+    pointer = new Node(value, pointer);
+    previousNode.nextNode = pointer;
+  }
+  // Remove the node at the given index
+  removeAt(index) {
+    if (index === 0) {
+      this.headNode = this.headNode.nextNode;
+      return;
+    }
+    let previousNode = this.headNode;
+    let pointer = previousNode.nextNode;
+
+    for (let i = 1; i < index; i++) {
+      if (pointer === null) {
+        return null;
+      }
+      previousNode = pointer;
+      pointer = pointer.nextNode;
+    }
+    previousNode.nextNode = pointer.nextNode;
+  }
 }
